@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Ping Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Network Ping & Device Status Dashboard</h1>
+
+        <!-- Add Device Form -->
+        <div class="card">
+            <h2>Add Device</h2>
+
+            <form action="/add" method="POST">
+
+                <input type="text" name="name" placeholder="Device Name" required>
+
+                <input type="text" name="ip" placeholder="IP Address" required>
+
+                <button type="submit">Add Device</button>
+
+            </form>
+        </div>
+
+        <!-- Refresh Button -->
+        <div class="refresh-section">
+            <a href="/refresh">
+                <button class="refresh-btn">Refresh Status</button>
+            </a>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="card">
+            <h2>Device Dashboard</h2>
+
+            <table>
+
+                <tr>
+                    <th>Device Name</th>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for device in devices %}
+                <tr>
+
+                    <td>{{ device.name }}</td>
+
+                    <td>{{ device.ip }}</td>
+
+                    <td>
+                        {% if device.status == "Online" %}
+                            <span class="online">Online</span>
+                        {% else %}
+                            <span class="offline">Offline</span>
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
